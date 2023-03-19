@@ -7,6 +7,7 @@ import {
 
 import { HighchartsDemo } from "./highcharts";
 import { RechartsDemo } from "./recharts";
+import { ChartjsDemo } from "./chartjs";
 import "./App.css";
 
 const Root = () => {
@@ -15,11 +16,13 @@ const Root = () => {
       <nav className="nav">
         <Link to="/highcharts">Highcharts</Link>
         <Link to="/recharts">Recharts</Link>
+        <Link to="/chartjs">Chartjs</Link>
       </nav>
       <Outlet />
     </div>
   );
 };
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "recharts",
         element: <RechartsDemo />,
+      },
+      {
+        path: "chartjs",
+        element: <ChartjsDemo />,
       },
     ],
   },
