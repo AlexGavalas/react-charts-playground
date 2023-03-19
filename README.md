@@ -3,7 +3,7 @@
 - [x] [Highcharts](https://github.com/highcharts/highcharts-react)
 - [x] [Recharts](https://recharts.org/)
 - [ ] [AM Charts](https://amcharts.com/)
-- [ ] [VisX](https://airbnb.io/visx/)
+- [-] [VisX](https://airbnb.io/visx/)
 - [X] [Chart.js](https://github.com/reactchartjs/react-chartjs-2)
 - [ ] [D3](https://d3js.org/) (And an extensive [article](https://wattenberger.com/blog/react-and-d3) on React + D3).
 - [ ] [Apache Echarts](https://echarts.apache.org/en/index.html)
