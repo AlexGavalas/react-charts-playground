@@ -15,6 +15,15 @@ body,
   padding: 5%;
 }
 
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: white;
+}
+
 .highcharts {
   display: grid;
   gap: 1rem;

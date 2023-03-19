@@ -1,12 +1,39 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Link,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 
 import { HighchartsDemo } from "./highcharts";
+import { RechartsDemo } from "./recharts";
 import "./App.css";
 
+const Root = () => {
+  return (
+    <div>
+      <nav className="nav">
+        <Link to="/highcharts">Highcharts</Link>
+        <Link to="/recharts">Recharts</Link>
+      </nav>
+      <Outlet />
+    </div>
+  );
+};
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HighchartsDemo />,
+    element: <Root />,
+    children: [
+      {
+        path: "highcharts",
+        element: <HighchartsDemo />,
+      },
+      {
+        path: "recharts",
+        element: <RechartsDemo />,
+      },
+    ],
   },
 ]);
 

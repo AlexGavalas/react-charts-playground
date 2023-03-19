@@ -2,7 +2,8 @@ import { useRef } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { useElementSize, mergeWithDefault } from "./helpers";
+import { mergeWithDefault } from "./helpers";
+import { useElementSize } from "../helpers";
 
 export const AreaChart = () => {
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
