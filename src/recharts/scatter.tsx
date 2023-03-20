@@ -19,7 +19,7 @@ const data = [
 
 export const ScatterChart = () => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} className="chart-container">
       <RCScatterChart
         margin={{
           top: 20,

@@ -7,7 +7,7 @@ import { MarkerArrow, MarkerX, MarkerCircle } from "@visx/marker";
 import generateDateValue, {
   DateValue,
 } from "@visx/mock-data/lib/generators/genDateValue";
-import { useElementSize } from "../helpers";
+import { ResponsiveWrapper, SizeProps } from "./responsive-wrapper";
 
 const lineCount = 3;
 const series = new Array(lineCount).fill(null).map((_, i) =>
@@ -31,9 +31,7 @@ const yScale = scaleLinear<number>({
   domain: [0, max(allData, getY) as number],
 });
 
-export const SplineChart = () => {
-  const { ref, width, height } = useElementSize<HTMLDivElement>();
-
+const _SplineChart = ({ width, height }: SizeProps) => {
   const verticalPadding = 20;
   const horizontalPadding = 20;
   const groupGap = 10;
@@ -45,62 +43,66 @@ export const SplineChart = () => {
   xScale.range([0, width - verticalPadding * 2]);
   yScale.range([lineHeight, 0]);
 
+  if (height <= 0) return null;
+
   return (
-    <div ref={ref} className="chart-container">
-      {height > 0 && (
-        <svg width={width} height={height}>
-          <rect width={width} height={height} fill="#efefef" />
-          <MarkerX
-            id="marker-x"
-            stroke="#333"
-            size={22}
-            strokeWidth={4}
-            markerUnits="userSpaceOnUse"
-          />
-          <MarkerCircle id="marker-circle" fill="#333" size={2} refX={2} />
-          <MarkerArrow id="marker-arrow" fill="#333" refX={2} size={6} />
-          {series.map((lineData, i) => {
-            const even = i % 2 === 0;
+    <svg width={width} height={height}>
+      <rect width={width} height={height} fill="#efefef" />
+      <MarkerX
+        id="marker-x"
+        stroke="#333"
+        size={22}
+        strokeWidth={4}
+        markerUnits="userSpaceOnUse"
+      />
+      <MarkerCircle id="marker-circle" fill="#333" size={2} refX={2} />
+      <MarkerArrow id="marker-arrow" fill="#333" refX={2} size={6} />
+      {series.map((lineData, i) => {
+        const even = i % 2 === 0;
 
-            const evenOptions = {
-              strokeWidth: 2,
-              strokeOpacity: 1,
-              markerMid: "url(#marker-circle)",
-              markerStart: "url(#marker-x)",
-              markerEnd: "url(#marker-arrow)",
-            };
+        const evenOptions = {
+          strokeWidth: 2,
+          strokeOpacity: 1,
+          markerMid: "url(#marker-circle)",
+          markerStart: "url(#marker-x)",
+          markerEnd: "url(#marker-arrow)",
+        };
 
-            return (
-              <Group
-                key={`lines-${i}`}
-                top={i * (lineHeight + groupGap) + horizontalPadding}
-                left={verticalPadding}
-              >
-                {even &&
-                  lineData.map((d, j) => (
-                    <circle
-                      key={i + j}
-                      r={5}
-                      cx={xScale(getX(d))}
-                      cy={yScale(getY(d))}
-                      stroke="rgba(33,33,33,0.5)"
-                      fill="transparent"
-                    />
-                  ))}
-                <LinePath<DateValue>
-                  curve={allCurves.curveNatural}
-                  data={lineData}
-                  x={(d) => xScale(getX(d)) ?? 0}
-                  y={(d) => yScale(getY(d)) ?? 0}
-                  stroke="#333"
-                  strokeWidth={0.7}
-                  {...(even && evenOptions)}
+        return (
+          <Group
+            key={`lines-${i}`}
+            top={i * (lineHeight + groupGap) + horizontalPadding}
+            left={verticalPadding}
+          >
+            {even &&
+              lineData.map((d, j) => (
+                <circle
+                  key={i + j}
+                  r={5}
+                  cx={xScale(getX(d))}
+                  cy={yScale(getY(d))}
+                  stroke="rgba(33,33,33,0.5)"
+                  fill="transparent"
                 />
-              </Group>
-            );
-          })}
-        </svg>
-      )}
-    </div>
+              ))}
+            <LinePath<DateValue>
+              curve={allCurves.curveNatural}
+              data={lineData}
+              x={(d) => xScale(getX(d)) ?? 0}
+              y={(d) => yScale(getY(d)) ?? 0}
+              stroke="#333"
+              strokeWidth={0.7}
+              {...(even && evenOptions)}
+            />
+          </Group>
+        );
+      })}
+    </svg>
   );
 };
+
+export const SplineChart = () => (
+  <ResponsiveWrapper>
+    {({ width, height }) => <_SplineChart height={height} width={width} />}
+  </ResponsiveWrapper>
+);

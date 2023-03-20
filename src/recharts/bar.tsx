@@ -49,7 +49,7 @@ const data = [
 
 export const BarChart = () => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} className="chart-container">
       <RCBarChart
         data={data}
         layout="vertical"

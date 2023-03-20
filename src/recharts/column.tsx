@@ -49,7 +49,7 @@ const data = [
 
 export const ColumnChart = () => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} className="chart-container">
       <RCBarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

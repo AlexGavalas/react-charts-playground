@@ -35,7 +35,7 @@ const data = [
 
 export const PieChart = () => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} className="chart-container">
       <RCPieChart>
         <Legend />
         <Tooltip />

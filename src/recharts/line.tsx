@@ -56,7 +56,7 @@ const data = [
 
 export const LineChart = () => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} className="chart-container">
       <RCLineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

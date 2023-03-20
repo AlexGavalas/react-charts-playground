@@ -36,7 +36,7 @@ const data = [
 
 export const DonutChart = () => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} className="chart-container">
       <RCPieChart>
         <Legend />
         <Tooltip />
