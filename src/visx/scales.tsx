@@ -21,7 +21,7 @@ import { LinearGradient } from "@visx/gradient";
 import { GridRowsProps } from "@visx/grid/lib/grids/GridRows";
 import { GridColumnsProps } from "@visx/grid/lib/grids/GridColumns";
 import { timeFormat } from "d3-time-format";
-import { useElementSize } from "../helpers";
+import { withSize } from "./responsive-wrapper";
 
 const backgroundColor = "#da7cff";
 const axisColor = "#fff";
@@ -73,13 +73,7 @@ interface AxisDemoProps<Scale extends AxisScale>
   values: ScaleInput<Scale>[];
 }
 
-export const Scales = () => {
-  const {
-    ref,
-    width: outerWidth,
-    height: outerHeight,
-  } = useElementSize<HTMLDivElement>();
-
+export const Scales = withSize(({ width: outerWidth, height: outerHeight }) => {
   // use non-animated components if prefers-reduced-motion is set
   const prefersReducedMotionQuery =
     typeof window === "undefined"
@@ -184,83 +178,81 @@ export const Scales = () => {
     range: [scaleHeight, 0],
   });
 
+  if (outerHeight <= 0) return null;
+
   return (
-    <div ref={ref} className="chart-container">
-      {outerHeight > 0 && (
-        <svg width={outerWidth} height={outerHeight}>
-          <LinearGradient
-            id="visx-axis-gradient"
-            from={backgroundColor}
-            to={backgroundColor}
-            toOpacity={0.5}
-          />
-          <rect
-            x={0}
-            y={0}
-            width={outerWidth}
-            height={outerHeight}
-            fill={"url(#visx-axis-gradient)"}
-          />
-          <g transform={`translate(${margin.left},${margin.top})`}>
-            {axes.map(({ scale, values, label, tickFormat }, i) => (
-              <g
-                key={`scale-${i}`}
-                transform={`translate(0, ${i * (scaleHeight + scalePadding)})`}
-              >
-                <GridRowsComponent
-                  scale={yScale}
-                  stroke={gridColor}
-                  width={width}
-                  numTicks={1}
-                  animationTrajectory="center"
-                />
-                <GridColumnsComponent
-                  scale={scale}
-                  stroke={gridColor}
-                  height={scaleHeight}
-                  numTicks={5}
-                  animationTrajectory="center"
-                />
-                <AreaClosed
-                  data={values.map((x) => [
-                    (scale(x) ?? 0) +
-                      // offset point half of band width for band scales
-                      ("bandwidth" in scale &&
-                      typeof scale!.bandwidth !== "undefined"
-                        ? scale.bandwidth!() / 2
-                        : 0),
-                    yScale(10 + seededRandom() * 90),
-                  ])}
-                  yScale={yScale}
-                  curve={curveMonotoneX}
-                  fill={gridColor}
-                  fillOpacity={0.2}
-                />
-                <AxisComponent
-                  orientation={Orientation.bottom}
-                  top={scaleHeight}
-                  scale={scale}
-                  tickFormat={tickFormat}
-                  stroke={axisColor}
-                  tickStroke={axisColor}
-                  tickLabelProps={tickLabelProps}
-                  tickValues={
-                    label === "log" || label === "time" ? undefined : values
-                  }
-                  numTicks={label === "time" ? 6 : undefined}
-                  label={label}
-                  labelProps={{
-                    x: width + 20,
-                    y: 0,
-                    fill: labelColor,
-                  }}
-                  animationTrajectory="center"
-                />
-              </g>
-            ))}
+    <svg width={outerWidth} height={outerHeight}>
+      <LinearGradient
+        id="visx-axis-gradient"
+        from={backgroundColor}
+        to={backgroundColor}
+        toOpacity={0.5}
+      />
+      <rect
+        x={0}
+        y={0}
+        width={outerWidth}
+        height={outerHeight}
+        fill={"url(#visx-axis-gradient)"}
+      />
+      <g transform={`translate(${margin.left},${margin.top})`}>
+        {axes.map(({ scale, values, label, tickFormat }, i) => (
+          <g
+            key={`scale-${i}`}
+            transform={`translate(0, ${i * (scaleHeight + scalePadding)})`}
+          >
+            <GridRowsComponent
+              scale={yScale}
+              stroke={gridColor}
+              width={width}
+              numTicks={1}
+              animationTrajectory="center"
+            />
+            <GridColumnsComponent
+              scale={scale}
+              stroke={gridColor}
+              height={scaleHeight}
+              numTicks={5}
+              animationTrajectory="center"
+            />
+            <AreaClosed
+              data={values.map((x) => [
+                (scale(x) ?? 0) +
+                  // offset point half of band width for band scales
+                  ("bandwidth" in scale &&
+                  typeof scale!.bandwidth !== "undefined"
+                    ? scale.bandwidth!() / 2
+                    : 0),
+                yScale(10 + seededRandom() * 90),
+              ])}
+              yScale={yScale}
+              curve={curveMonotoneX}
+              fill={gridColor}
+              fillOpacity={0.2}
+            />
+            <AxisComponent
+              orientation={Orientation.bottom}
+              top={scaleHeight}
+              scale={scale}
+              tickFormat={tickFormat}
+              stroke={axisColor}
+              tickStroke={axisColor}
+              tickLabelProps={tickLabelProps}
+              tickValues={
+                label === "log" || label === "time" ? undefined : values
+              }
+              numTicks={label === "time" ? 6 : undefined}
+              label={label}
+              labelProps={{
+                x: width + 20,
+                y: 0,
+                fill: labelColor,
+              }}
+              animationTrajectory="center"
+            />
           </g>
-        </svg>
-      )}
-    </div>
+        ))}
+      </g>
+    </svg>
   );
-};
+});

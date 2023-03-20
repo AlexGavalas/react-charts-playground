@@ -10,7 +10,7 @@ import browserUsage, {
   BrowserUsage as Browsers,
 } from "@visx/mock-data/lib/mocks/browserUsage";
 import { animated, useTransition, to } from "@react-spring/web";
-import { useElementSize } from "../helpers";
+import { withSize } from "./responsive-wrapper";
 
 // data and types
 type BrowserNames = keyof Browsers;
@@ -58,17 +58,10 @@ const getLetterFrequencyColor = scaleOrdinal({
 
 const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-type PieProps = {
-  margin?: typeof defaultMargin;
-  animate?: boolean;
-};
+const animate = true;
+const margin = defaultMargin;
 
-export const PieChart = ({
-  margin = defaultMargin,
-  animate = true,
-}: PieProps) => {
-  const { ref, width, height } = useElementSize<HTMLDivElement>();
-
+export const PieChart = withSize(({ width, height }) => {
   const [selectedBrowser, setSelectedBrowser] = useState<string | null>(null);
   const [selectedAlphabetLetter, setSelectedAlphabetLetter] = useState<
     string | null
@@ -81,97 +74,88 @@ export const PieChart = ({
   const centerX = innerWidth / 2;
   const donutThickness = 50;
 
+  if (height <= 0) return null;
+
   return (
-    <div ref={ref} className="chart-container">
-      {height > 0 && (
-        <svg width={width} height={height}>
-          <GradientPinkBlue id="visx-pie-gradient" />
-          <rect
-            width={width}
-            height={height}
-            fill="url('#visx-pie-gradient')"
-          />
-          <Group top={centerY + margin.top} left={centerX + margin.left}>
-            <Pie
-              data={
-                selectedBrowser
-                  ? browsers.filter(({ label }) => label === selectedBrowser)
-                  : browsers
+    <svg width={width} height={height}>
+      <GradientPinkBlue id="visx-pie-gradient" />
+      <rect width={width} height={height} fill="url('#visx-pie-gradient')" />
+      <Group top={centerY + margin.top} left={centerX + margin.left}>
+        <Pie
+          data={
+            selectedBrowser
+              ? browsers.filter(({ label }) => label === selectedBrowser)
+              : browsers
+          }
+          pieValue={usage}
+          outerRadius={radius}
+          innerRadius={radius - donutThickness}
+          cornerRadius={3}
+          padAngle={0.005}
+        >
+          {(pie) => (
+            <AnimatedPie<BrowserUsage>
+              {...pie}
+              animate={animate}
+              getKey={(arc) => arc.data.label}
+              onClickDatum={({ data: { label } }) =>
+                animate &&
+                setSelectedBrowser(
+                  selectedBrowser && selectedBrowser === label ? null : label
+                )
               }
-              pieValue={usage}
-              outerRadius={radius}
-              innerRadius={radius - donutThickness}
-              cornerRadius={3}
-              padAngle={0.005}
-            >
-              {(pie) => (
-                <AnimatedPie<BrowserUsage>
-                  {...pie}
-                  animate={animate}
-                  getKey={(arc) => arc.data.label}
-                  onClickDatum={({ data: { label } }) =>
-                    animate &&
-                    setSelectedBrowser(
-                      selectedBrowser && selectedBrowser === label
-                        ? null
-                        : label
-                    )
-                  }
-                  getColor={(arc) => getBrowserColor(arc.data.label)}
-                />
-              )}
-            </Pie>
-            <Pie
-              data={
-                selectedAlphabetLetter
-                  ? letters.filter(
-                      ({ letter }) => letter === selectedAlphabetLetter
-                    )
-                  : letters
-              }
-              pieValue={frequency}
-              pieSortValues={() => -1}
-              outerRadius={radius - donutThickness * 1.3}
-            >
-              {(pie) => (
-                <AnimatedPie<LetterFrequency>
-                  {...pie}
-                  animate={animate}
-                  getKey={({ data: { letter } }) => letter}
-                  onClickDatum={({ data: { letter } }) =>
-                    animate &&
-                    setSelectedAlphabetLetter(
-                      selectedAlphabetLetter &&
-                        selectedAlphabetLetter === letter
-                        ? null
-                        : letter
-                    )
-                  }
-                  getColor={({ data: { letter } }) =>
-                    getLetterFrequencyColor(letter)
-                  }
-                />
-              )}
-            </Pie>
-          </Group>
-          {animate && (
-            <text
-              textAnchor="end"
-              x={width - 16}
-              y={height - 16}
-              fill="white"
-              fontSize={11}
-              fontWeight={300}
-              pointerEvents="none"
-            >
-              Click segments to update
-            </text>
+              getColor={(arc) => getBrowserColor(arc.data.label)}
+            />
           )}
-        </svg>
+        </Pie>
+        <Pie
+          data={
+            selectedAlphabetLetter
+              ? letters.filter(
+                  ({ letter }) => letter === selectedAlphabetLetter
+                )
+              : letters
+          }
+          pieValue={frequency}
+          pieSortValues={() => -1}
+          outerRadius={radius - donutThickness * 1.3}
+        >
+          {(pie) => (
+            <AnimatedPie<LetterFrequency>
+              {...pie}
+              animate={animate}
+              getKey={({ data: { letter } }) => letter}
+              onClickDatum={({ data: { letter } }) =>
+                animate &&
+                setSelectedAlphabetLetter(
+                  selectedAlphabetLetter && selectedAlphabetLetter === letter
+                    ? null
+                    : letter
+                )
+              }
+              getColor={({ data: { letter } }) =>
+                getLetterFrequencyColor(letter)
+              }
+            />
+          )}
+        </Pie>
+      </Group>
+      {animate && (
+        <text
+          textAnchor="end"
+          x={width - 16}
+          y={height - 16}
+          fill="white"
+          fontSize={11}
+          fontWeight={300}
+          pointerEvents="none"
+        >
+          Click segments to update
+        </text>
       )}
-    </div>
+    </svg>
   );
-};
+});
 
 // react-spring transition definitions
 type AnimatedStyles = { startAngle: number; endAngle: number; opacity: number };

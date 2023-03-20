@@ -14,19 +14,14 @@ export const VisXDemo = () => {
       <p>VisX</p>
       <div className="charts">
         <Scales />
-        <AreaChart />
         <Legends />
+        <AreaChart />
         <BarChart />
         <ColumnChart />
         <SplineChart />
         <ScatterChart />
         <PieChart />
         <HeatmapChart />
-        {/* <AreaSplineChart /> 
-        <LineChart />
-        <DonutChart />
-        <PolarChart />
-        <SunburstChart /> */}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { MarkerArrow, MarkerX, MarkerCircle } from "@visx/marker";
 import generateDateValue, {
   DateValue,
 } from "@visx/mock-data/lib/generators/genDateValue";
-import { ResponsiveWrapper, SizeProps } from "./responsive-wrapper";
+import { withSize } from "./responsive-wrapper";
 
 const lineCount = 3;
 const series = new Array(lineCount).fill(null).map((_, i) =>
@@ -31,7 +31,7 @@ const yScale = scaleLinear<number>({
   domain: [0, max(allData, getY) as number],
 });
 
-const _SplineChart = ({ width, height }: SizeProps) => {
+export const SplineChart = withSize(({ width, height }) => {
   const verticalPadding = 20;
   const horizontalPadding = 20;
   const groupGap = 10;
@@ -99,10 +99,4 @@ const _SplineChart = ({ width, height }: SizeProps) => {
       })}
     </svg>
   );
-};
-
-export const SplineChart = () => (
-  <ResponsiveWrapper>
-    {({ width, height }) => <_SplineChart height={height} width={width} />}
-  </ResponsiveWrapper>
-);
+});

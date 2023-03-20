@@ -3,7 +3,7 @@ import genBins, { Bin, Bins } from "@visx/mock-data/lib/generators/genBins";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapCircle, HeatmapRect } from "@visx/heatmap";
 import { getSeededRandom } from "@visx/mock-data";
-import { useElementSize } from "../helpers";
+import { withSize } from "./responsive-wrapper";
 
 const hot1 = "#77312f";
 const hot2 = "#f33d15";
@@ -56,6 +56,7 @@ const opacityScale = scaleLinear<number>({
 });
 
 const MARGIN = 20;
+const GAP = 4;
 
 const defaultMargin = {
   top: MARGIN,
@@ -64,13 +65,11 @@ const defaultMargin = {
   bottom: MARGIN,
 };
 
-export const HeatmapChart = () => {
-  const events = false;
-  const separation = MARGIN;
-  const margin = defaultMargin;
+const events = false;
+const separation = MARGIN;
+const margin = defaultMargin;
 
-  const { ref, width, height } = useElementSize<HTMLDivElement>();
-
+export const HeatmapChart = withSize(({ width, height }) => {
   const size =
     width > margin.left + margin.right
       ? width - margin.left - margin.right - separation
@@ -87,79 +86,75 @@ export const HeatmapChart = () => {
   xScale.range([0, xMax]);
   yScale.range([0, yMax]);
 
-  const GAP = 4;
+  if (height <= 0) return null;
 
   return (
-    <div ref={ref} className="chart-container">
-      {height > 0 && (
-        <svg width={width} height={height}>
-          <rect width={width} height={height} fill={background} />
-          <Group top={margin.top} left={margin.left}>
-            <HeatmapCircle
-              data={binData}
-              xScale={(d) => xScale(d) ?? 0}
-              yScale={(d) => yScale(d) ?? 0}
-              colorScale={circleColorScale}
-              opacityScale={opacityScale}
-              radius={radius}
-              gap={GAP}
-            >
-              {(heatmap) =>
-                heatmap.map((heatmapBins) =>
-                  heatmapBins.map((bin) => (
-                    <circle
-                      key={`heatmap-circle-${bin.row}-${bin.column}`}
-                      cx={bin.cx}
-                      cy={bin.cy}
-                      r={bin.r}
-                      fill={bin.color}
-                      fillOpacity={bin.opacity}
-                      onClick={() => {
-                        if (!events) return;
-                        const { row, column } = bin;
-                        alert(JSON.stringify({ row, column, bin: bin.bin }));
-                      }}
-                    />
-                  ))
-                )
-              }
-            </HeatmapCircle>
-          </Group>
-          <Group top={margin.top} left={xMax + margin.left + separation}>
-            <HeatmapRect
-              data={binData}
-              xScale={(d) => xScale(d) ?? 0}
-              yScale={(d) => yScale(d) ?? 0}
-              colorScale={rectColorScale}
-              opacityScale={opacityScale}
-              binWidth={binWidth}
-              binHeight={binHeight}
-              gap={GAP}
-            >
-              {(heatmap) =>
-                heatmap.map((heatmapBins) =>
-                  heatmapBins.map((bin) => (
-                    <rect
-                      key={`heatmap-rect-${bin.row}-${bin.column}`}
-                      width={bin.width}
-                      height={bin.height}
-                      x={bin.x}
-                      y={bin.y}
-                      fill={bin.color}
-                      fillOpacity={bin.opacity}
-                      onClick={() => {
-                        if (!events) return;
-                        const { row, column } = bin;
-                        alert(JSON.stringify({ row, column, bin: bin.bin }));
-                      }}
-                    />
-                  ))
-                )
-              }
-            </HeatmapRect>
-          </Group>
-        </svg>
-      )}
-    </div>
+    <svg width={width} height={height}>
+      <rect width={width} height={height} fill={background} />
+      <Group top={margin.top} left={margin.left}>
+        <HeatmapCircle
+          data={binData}
+          xScale={(d) => xScale(d) ?? 0}
+          yScale={(d) => yScale(d) ?? 0}
+          colorScale={circleColorScale}
+          opacityScale={opacityScale}
+          radius={radius}
+          gap={GAP}
+        >
+          {(heatmap) =>
+            heatmap.map((heatmapBins) =>
+              heatmapBins.map((bin) => (
+                <circle
+                  key={`heatmap-circle-${bin.row}-${bin.column}`}
+                  cx={bin.cx}
+                  cy={bin.cy}
+                  r={bin.r}
+                  fill={bin.color}
+                  fillOpacity={bin.opacity}
+                  onClick={() => {
+                    if (!events) return;
+                    const { row, column } = bin;
+                    alert(JSON.stringify({ row, column, bin: bin.bin }));
+                  }}
+                />
+              ))
+            )
+          }
+        </HeatmapCircle>
+      </Group>
+      <Group top={margin.top} left={xMax + margin.left + separation}>
+        <HeatmapRect
+          data={binData}
+          xScale={(d) => xScale(d) ?? 0}
+          yScale={(d) => yScale(d) ?? 0}
+          colorScale={rectColorScale}
+          opacityScale={opacityScale}
+          binWidth={binWidth}
+          binHeight={binHeight}
+          gap={GAP}
+        >
+          {(heatmap) =>
+            heatmap.map((heatmapBins) =>
+              heatmapBins.map((bin) => (
+                <rect
+                  key={`heatmap-rect-${bin.row}-${bin.column}`}
+                  width={bin.width}
+                  height={bin.height}
+                  x={bin.x}
+                  y={bin.y}
+                  fill={bin.color}
+                  fillOpacity={bin.opacity}
+                  onClick={() => {
+                    if (!events) return;
+                    const { row, column } = bin;
+                    alert(JSON.stringify({ row, column, bin: bin.bin }));
+                  }}
+                />
+              ))
+            )
+          }
+        </HeatmapRect>
+      </Group>
+    </svg>
   );
-};
+});

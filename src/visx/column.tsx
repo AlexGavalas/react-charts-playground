@@ -6,27 +6,33 @@ import letterFrequency, {
   LetterFrequency,
 } from "@visx/mock-data/lib/mocks/letterFrequency";
 import { scaleBand, scaleLinear } from "@visx/scale";
-import { useElementSize } from "../helpers";
+import { withSize } from "./responsive-wrapper";
 
-const data = letterFrequency.slice(5);
-const verticalMargin = 120;
+const data = letterFrequency.slice();
 
 // accessors
 const getLetter = (d: LetterFrequency) => d.letter;
 const getLetterFrequency = (d: LetterFrequency) => Number(d.frequency) * 100;
 
-export type BarsProps = {
-  events?: boolean;
+const DEFAULT_MARGIN = 10;
+
+const margin = {
+  top: DEFAULT_MARGIN,
+  right: DEFAULT_MARGIN,
+  bottom: DEFAULT_MARGIN,
+  left: DEFAULT_MARGIN,
 };
 
-export const ColumnChart = ({ events = false }: BarsProps) => {
-  const { ref, width, height } = useElementSize<HTMLDivElement>();
+export const ColumnChart = withSize(({ width, height }) => {
+  const events = false;
 
   // bounds
-  const xMax = width;
-  const yMax = height - verticalMargin;
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
 
-  // scales, memoize for performance
+  const xMax = innerWidth;
+  const yMax = innerHeight;
+
   const xScale = useMemo(
     () =>
       scaleBand<string>({
@@ -48,38 +54,36 @@ export const ColumnChart = ({ events = false }: BarsProps) => {
     [yMax]
   );
 
-  return (
-    <div ref={ref} className="chart-container">
-      {height > 0 && (
-        <svg width={width} height={height}>
-          <GradientTealBlue id="teal" />
-          <rect width={width} height={height} fill="url(#teal)" />
-          <Group top={verticalMargin / 2}>
-            {data.map((d) => {
-              const letter = getLetter(d);
-              const barWidth = xScale.bandwidth();
-              const barHeight = yMax - (yScale(getLetterFrequency(d)) ?? 0);
-              const barX = xScale(letter);
-              const barY = yMax - barHeight;
+  if (height <= 0) return null;
 
-              return (
-                <Bar
-                  key={`bar-${letter}`}
-                  x={barX}
-                  y={barY}
-                  width={barWidth}
-                  height={barHeight}
-                  fill="rgba(23, 233, 217, .5)"
-                  onClick={() => {
-                    if (events)
-                      alert(`clicked: ${JSON.stringify(Object.values(d))}`);
-                  }}
-                />
-              );
-            })}
-          </Group>
-        </svg>
-      )}
-    </div>
+  return (
+    <svg width={width} height={height}>
+      <GradientTealBlue id="teal" />
+      <rect width={width} height={height} fill="url(#teal)" />
+      <Group top={margin.top} left={margin.left}>
+        {data.map((d) => {
+          const letter = getLetter(d);
+          const barWidth = xScale.bandwidth();
+          const barHeight = yMax - (yScale(getLetterFrequency(d)) ?? 0);
+          const barX = xScale(letter);
+          const barY = yMax - barHeight;
+
+          return (
+            <Bar
+              key={`bar-${letter}`}
+              x={barX}
+              y={barY}
+              width={barWidth}
+              height={barHeight}
+              fill="rgba(23, 233, 217, .5)"
+              onClick={() => {
+                if (events)
+                  alert(`clicked: ${JSON.stringify(Object.values(d))}`);
+              }}
+            />
+          );
+        })}
+      </Group>
+    </svg>
   );
-};
+});

@@ -6,12 +6,7 @@ import cityTemperature, {
 } from "@visx/mock-data/lib/mocks/cityTemperature";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@visx/scale";
 import { timeParse, timeFormat } from "d3-time-format";
-import { useElementSize } from "../helpers";
-
-type BarGroupHorizontalProps = {
-  margin?: { top: number; right: number; bottom: number; left: number };
-  events?: boolean;
-};
+import { withSize } from "./responsive-wrapper";
 
 type CityName = "New York" | "San Francisco" | "Austin";
 
@@ -19,7 +14,6 @@ const blue = "#aeeef8";
 const green = "#e5fd3d";
 const purple = "#9caff6";
 const background = "#612efb";
-const defaultMargin = { top: 20, right: 20, bottom: 20, left: 50 };
 
 const parseDate = timeParse("%Y-%m-%d");
 const format = timeFormat("%b %d");
@@ -54,82 +48,77 @@ const colorScale = scaleOrdinal<string, string>({
   range: [blue, green, purple],
 });
 
-export const BarChart = ({
-  margin = defaultMargin,
-  events = false,
-}: BarGroupHorizontalProps) => {
-  const { ref, width, height } = useElementSize<HTMLDivElement>();
+export const BarChart = withSize(({ height, width }) => {
+  const events = false;
+  const margin = { top: 20, right: 20, bottom: 20, left: 50 };
 
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
 
-  // update scale output dimensions
   dateScale.rangeRound([0, yMax]);
   cityScale.rangeRound([0, dateScale.bandwidth()]);
   tempScale.rangeRound([0, xMax]);
 
+  const RADIUS = 5;
+
+  if (!height) return null;
+
   return (
-    <div ref={ref} className="chart-container">
-      {height > 0 && (
-        <svg width={width} height={height}>
-          <rect x={0} y={0} width={width} height={height} fill={background} />
-          <Group top={margin.top} left={margin.left}>
-            <BarGroupHorizontal
-              data={data}
-              keys={keys}
-              width={xMax}
-              y0={getDate}
-              y0Scale={dateScale}
-              y1Scale={cityScale}
-              xScale={tempScale}
-              color={colorScale}
-            >
-              {(barGroups) =>
-                barGroups.map((barGroup) => (
-                  <Group
-                    key={`bar-group-horizontal-${barGroup.index}-${barGroup.y0}`}
-                    top={barGroup.y0}
-                  >
-                    {barGroup.bars.map((bar) => (
-                      <Bar
-                        key={`${barGroup.index}-${bar.index}-${bar.key}`}
-                        x={bar.x}
-                        y={bar.y}
-                        width={bar.width}
-                        height={bar.height}
-                        fill={bar.color}
-                        rx={4}
-                        onClick={() => {
-                          if (events)
-                            alert(
-                              `${bar.key} (${bar.value}) - ${JSON.stringify(
-                                bar
-                              )}`
-                            );
-                        }}
-                      />
-                    ))}
-                  </Group>
-                ))
-              }
-            </BarGroupHorizontal>
-            <AxisLeft
-              scale={dateScale}
-              stroke={green}
-              tickStroke={green}
-              tickFormat={formatDate}
-              hideAxisLine
-              tickLabelProps={{
-                fill: green,
-                fontSize: 11,
-                textAnchor: "end",
-                dy: "0.33em",
-              }}
-            />
-          </Group>
-        </svg>
-      )}
-    </div>
+    <svg width={width} height={height}>
+      <rect width={width} height={height} fill={background} rx={RADIUS} />
+      <Group top={margin.top} left={margin.left}>
+        <BarGroupHorizontal
+          data={data}
+          keys={keys}
+          width={xMax}
+          y0={getDate}
+          y0Scale={dateScale}
+          y1Scale={cityScale}
+          xScale={tempScale}
+          color={colorScale}
+        >
+          {(barGroups) =>
+            barGroups.map((barGroup) => (
+              <Group
+                key={`bar-group-horizontal-${barGroup.index}-${barGroup.y0}`}
+                top={barGroup.y0}
+              >
+                {barGroup.bars.map((bar) => (
+                  <Bar
+                    key={`${barGroup.index}-${bar.index}-${bar.key}`}
+                    x={bar.x}
+                    y={bar.y}
+                    width={bar.width}
+                    height={bar.height}
+                    fill={bar.color}
+                    rx={4}
+                    onClick={() => {
+                      if (events)
+                        alert(
+                          `${bar.key} (${bar.value}) - ${JSON.stringify(bar)}`
+                        );
+                    }}
+                  />
+                ))}
+              </Group>
+            ))
+          }
+        </BarGroupHorizontal>
+        <AxisLeft
+          scale={dateScale}
+          stroke={green}
+          tickStroke={green}
+          tickFormat={formatDate}
+          hideAxisLine
+          tickLabelProps={{
+            fill: green,
+            fontSize: 11,
+            textAnchor: "end",
+            dy: "0.33em",
+          }}
+        />
+      </Group>
+    </svg>
   );
-};
+});
