@@ -11,6 +11,7 @@ import { ChartjsDemo } from "./chartjs";
 import { VisXDemo } from "./visx";
 import { EchartsDemo } from "./echarts";
 import "./App.css";
+import { PlotlyDemo } from "./plotly";
 
 const Root = () => {
   return (
@@ -21,6 +22,7 @@ const Root = () => {
         <Link to="/chartjs">Chartjs</Link>
         <Link to="/visx">VisX</Link>
         <Link to="/echarts">Echarts</Link>
+        <Link to="/plotly">Plotly</Link>
       </nav>
       <Outlet />
     </div>
@@ -51,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "echarts",
         element: <EchartsDemo />,
+      },
+      {
+        path: "plotly",
+        element: <PlotlyDemo />,
       },
     ],
   },
