@@ -66,11 +66,11 @@ Libraries tried but not included here are:
 
 #### Pros
 
-1. Very nice visually.
-2. Many chart types and customization options.
-3. Extensive API.
-4. Good documentation.
-5. Responsive charts.
+1. Many chart types and customization options.
+2. Extensive API.
+3. Good documentation.
+4. Responsive charts.
+5. Very nice visually.
 
 #### Cons
 
@@ -107,11 +107,11 @@ Libraries tried but not included here are:
 
 1. Extensive API.
 2. Nice documentation.
-3. Responsive charts.
 
 #### Cons
 
 1. Does not have many chart types, eg. heatmap, sunburst or polar charts.
+2. Responsive charts require an additional wrapper.
 
 ---
 

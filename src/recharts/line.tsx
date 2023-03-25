@@ -6,8 +6,10 @@ import {
   Tooltip,
   Legend,
   Line,
-  ResponsiveContainer,
 } from "recharts";
+
+import { useElementSize } from "../helpers";
+import { RECHARTS_MARGIN } from "./constants";
 
 const data = [
   {
@@ -55,9 +57,16 @@ const data = [
 ];
 
 export const LineChart = () => {
+  const { ref, height, width } = useElementSize<HTMLDivElement>();
+
   return (
-    <ResponsiveContainer height={300} className="chart-container">
-      <RCLineChart data={data}>
+    <div ref={ref} className="chart-container">
+      <RCLineChart
+        width={width}
+        height={height}
+        data={data}
+        margin={RECHARTS_MARGIN}
+      >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
@@ -66,6 +75,6 @@ export const LineChart = () => {
         <Line dataKey="pv" stroke="#8884d8" />
         <Line dataKey="uv" stroke="#82ca9d" />
       </RCLineChart>
-    </ResponsiveContainer>
+    </div>
   );
 };

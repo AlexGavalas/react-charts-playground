@@ -16,15 +16,15 @@ export const ReactECharts = ({
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let chart: ECharts | undefined;
+    let chart: ECharts | null = null;
 
     if (chartRef.current) {
       chart = init(chartRef.current);
     }
 
-    function resizeChart() {
+    const resizeChart = () => {
       chart?.resize();
-    }
+    };
 
     window.addEventListener("resize", resizeChart);
 
@@ -53,5 +53,5 @@ export const ReactECharts = ({
     }
   }, [loading]);
 
-  return <div ref={chartRef} className="chart-container" />;
+  return <div ref={chartRef} className="chart-container echarts" />;
 };

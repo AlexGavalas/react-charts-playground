@@ -8,6 +8,7 @@ import {
 } from "recharts";
 
 import { useElementSize } from "../helpers";
+import { RECHARTS_MARGIN } from "./constants";
 
 const data = [
   {
@@ -59,7 +60,12 @@ export const AreaSplineChart = () => {
 
   return (
     <div ref={ref} className="chart-container">
-      <RCAreaChart width={width} height={height} data={data}>
+      <RCAreaChart
+        width={width}
+        height={height}
+        data={data}
+        margin={RECHARTS_MARGIN}
+      >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />

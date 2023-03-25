@@ -1,4 +1,5 @@
-import { ReactECharts, ReactEChartsProps } from "./chart";
+import { ReactECharts } from "./chart";
+import { mergeWithDefault } from "./helpers";
 
 const hours = [
   "12a",
@@ -210,51 +211,48 @@ const data = [
   return [item[1], item[0], item[2] || "-"];
 });
 
-const option: ReactEChartsProps["option"] = {
-  tooltip: {},
-  grid: {
-    bottom: "30%",
-  },
-  xAxis: {
-    type: "category",
-    data: hours,
-    splitArea: {
-      show: true,
-    },
-  },
-  yAxis: {
-    type: "category",
-    data: days,
-    splitArea: {
-      show: true,
-    },
-  },
-  visualMap: {
-    min: 0,
-    max: 10,
-    calculable: true,
-    orient: "horizontal",
-    left: "center",
-    bottom: "10%",
-  },
-  series: [
-    {
-      name: "Punch Card",
-      type: "heatmap",
-      data: data,
-      label: {
-        show: true,
+export const HeatmapChart = () => {
+  const { option, settings } = mergeWithDefault({
+    option: {
+      title: {
+        text: "Heatmap chart",
       },
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.5)",
+      legend: {
+        show: false,
+      },
+      xAxis: {
+        type: "category",
+        data: hours,
+        splitArea: {
+          show: true,
         },
       },
+      yAxis: {
+        type: "category",
+        data: days,
+        splitArea: {
+          show: true,
+        },
+      },
+      visualMap: {
+        min: 0,
+        max: 10,
+        calculable: true,
+        orient: "horizontal",
+        left: "center",
+      },
+      series: [
+        {
+          name: "Punch Card",
+          type: "heatmap",
+          data: data,
+          label: {
+            show: true,
+          },
+        },
+      ],
     },
-  ],
-};
+  });
 
-export const HeatmapChart = () => {
-  return <ReactECharts option={option} />;
+  return <ReactECharts option={option} settings={settings} />;
 };

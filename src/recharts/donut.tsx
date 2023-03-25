@@ -1,10 +1,7 @@
-import {
-  PieChart as RCPieChart,
-  Pie,
-  ResponsiveContainer,
-  Legend,
-  Tooltip,
-} from "recharts";
+import { PieChart as RCPieChart, Pie, Legend, Tooltip } from "recharts";
+
+import { useElementSize } from "../helpers";
+import { RECHARTS_MARGIN } from "./constants";
 
 const data = [
   {
@@ -35,9 +32,11 @@ const data = [
 ];
 
 export const DonutChart = () => {
+  const { ref, height, width } = useElementSize<HTMLDivElement>();
+
   return (
-    <ResponsiveContainer height={300} className="chart-container">
-      <RCPieChart>
+    <div ref={ref} className="chart-container">
+      <RCPieChart width={width} height={height} margin={RECHARTS_MARGIN}>
         <Legend />
         <Tooltip />
         <Pie
@@ -51,6 +50,6 @@ export const DonutChart = () => {
           label
         />
       </RCPieChart>
-    </ResponsiveContainer>
+    </div>
   );
 };

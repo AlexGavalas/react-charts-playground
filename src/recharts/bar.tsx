@@ -6,8 +6,10 @@ import {
   Tooltip,
   Legend,
   Bar,
-  ResponsiveContainer,
 } from "recharts";
+
+import { useElementSize } from "../helpers";
+import { RECHARTS_MARGIN } from "./constants";
 
 const data = [
   {
@@ -48,17 +50,16 @@ const data = [
 ];
 
 export const BarChart = () => {
+  const { ref, height, width } = useElementSize<HTMLDivElement>();
+
   return (
-    <ResponsiveContainer height={300} className="chart-container">
+    <div ref={ref} className="chart-container">
       <RCBarChart
         data={data}
         layout="vertical"
-        margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 20,
-        }}
+        width={width}
+        height={height}
+        margin={RECHARTS_MARGIN}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis type="number" />
@@ -68,6 +69,6 @@ export const BarChart = () => {
         <Bar dataKey="pv" fill="#413ea0" />
         <Bar dataKey="uv" fill="#82ca9d" />
       </RCBarChart>
-    </ResponsiveContainer>
+    </div>
   );
 };

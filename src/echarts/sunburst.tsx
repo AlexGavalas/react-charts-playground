@@ -1,4 +1,5 @@
-import { ReactECharts, ReactEChartsProps } from "./chart";
+import { ReactECharts } from "./chart";
+import { mergeWithDefault } from "./helpers";
 
 const data = [
   {
@@ -15,12 +16,6 @@ const data = [
           {
             name: "Cousin Mary",
             value: 5,
-            children: [
-              {
-                name: "Jackson",
-                value: 2,
-              },
-            ],
           },
           {
             name: "Cousin Ben",
@@ -64,21 +59,29 @@ const data = [
   },
 ];
 
-const option: ReactEChartsProps["option"] = {
-  series: {
-    type: "sunburst",
-    data,
-    radius: [60, "90%"],
-    itemStyle: {
-      borderRadius: 7,
-      borderWidth: 2,
-    },
-    label: {
-      rotate: "tangential",
-    },
-  },
-};
-
 export const SunburstChart = () => {
-  return <ReactECharts option={option} />;
+  const { option, settings } = mergeWithDefault({
+    option: {
+      title: {
+        text: "Sunburst chart",
+      },
+      legend: {
+        show: false,
+      },
+      series: {
+        type: "sunburst",
+        data,
+        radius: ["10%", "90%"],
+        center: ["50%", "55%"],
+        label: {
+          rotate: "tangential",
+        },
+        emphasis: {
+          focus: "ancestor",
+        },
+      },
+    },
+  });
+
+  return <ReactECharts option={option} settings={settings} />;
 };

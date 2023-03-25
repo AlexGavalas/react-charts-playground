@@ -51,11 +51,15 @@ body,
 }
 
 .chart-container {
-  height: 300px;
+  height: 400px;
   border-radius: 5px;
   overflow: hidden;
   border: 2px solid gray;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.echarts {
+  padding: 20px 0;
 }

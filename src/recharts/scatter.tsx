@@ -5,8 +5,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
 } from "recharts";
+
+import { useElementSize } from "../helpers";
+import { RECHARTS_MARGIN } from "./constants";
 
 const data = [
   { x: 100, y: 200, z: 200 },
@@ -18,22 +20,17 @@ const data = [
 ];
 
 export const ScatterChart = () => {
+  const { ref, height, width } = useElementSize<HTMLDivElement>();
+
   return (
-    <ResponsiveContainer height={300} className="chart-container">
-      <RCScatterChart
-        margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 20,
-        }}
-      >
+    <div ref={ref} className="chart-container">
+      <RCScatterChart width={width} height={height} margin={RECHARTS_MARGIN}>
         <CartesianGrid />
         <XAxis type="number" dataKey="x" name="stature" unit="cm" />
         <YAxis type="number" dataKey="y" name="weight" unit="kg" />
         <Tooltip cursor={{ strokeDasharray: "3 3" }} />
         <Scatter name="A school" data={data} fill="#8884d8" />
       </RCScatterChart>
-    </ResponsiveContainer>
+    </div>
   );
 };
