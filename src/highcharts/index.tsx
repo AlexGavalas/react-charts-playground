@@ -13,8 +13,8 @@ import { SunburstChart } from "./sunburst";
 
 export const HighchartsDemo = () => {
   return (
-    <div className="highcharts">
-      <p>Highcharts</p>
+    <div className="grid">
+      <p className="title">Highcharts</p>
       <div className="charts">
         <AreaChart />
         <AreaSplineChart />

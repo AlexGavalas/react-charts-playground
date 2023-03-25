@@ -1,23 +1,19 @@
-## Libraries evaluated
+# React Charts
 
-- [x] [Highcharts](https://github.com/highcharts/highcharts-react) 🚀  
-       + Plenty of chart types and options. Extensive API.  
-       - Is a paid product for commercial use.
-- [x] [Apache Echarts](https://echarts.apache.org/en/index.html) 🚀  
-       + Very nice. Does not have a React library, but seems quite easily integratable.
-- [x] [VisX](https://airbnb.io/visx/) 🚀  
-       + Very flexible, since it's a D3 wrapper.  
-       - Has a steep learning curve, since it's a D3 wrapper.
-- [x] [Recharts](https://recharts.org/) 🤔  
-       + Extensive API.  
-       - Does not have heatmap, sunburst or polar charts.
-- [x] [Chart.js](https://github.com/reactchartjs/react-chartjs-2) 🤔  
-       + Easy to use.  
-       - Does not have heatmap or sunburst charts.
-- [x] [D3](https://d3js.org/) 🤔  
-       - VisX seems a simpler way to use D3 in React.
-- [x] [Plotly](https://plotly.com/javascript/) 🤔  
-       - Not the best types. Working, but may require some manual typing. Seems oriented to more scientific charts.
+This is a playground to evaluate React charting libraries.
+
+Libraries tried are:
+
+- [x] [Highcharts](https://github.com/highcharts/highcharts-react) 🚀
+- [x] [Apache Echarts](https://echarts.apache.org/en/index.html) 🚀
+- [x] [VisX](https://airbnb.io/visx/) 🚀
+- [x] [Recharts](https://recharts.org/) 🤔
+- [x] [Chart.js](https://github.com/reactchartjs/react-chartjs-2) 🤔
+- [x] [Plotly](https://plotly.com/javascript/) 🤔
+- [x] [ApexCharts](https://github.com/apexcharts/react-apexcharts) 🤔
+
+Libraries tried but not included here are:
+
 - [x] [AM Charts](https://amcharts.com/) 👎  
        - Too complicated API when used in React.
 - [x] [Frappe](https://frappe.io/charts) 👎  
@@ -25,18 +21,146 @@
        - Not enough chart types. Poor documentation.
 - [x] [Charts.css](https://chartscss.org/) 👎  
        - Not enough chart types. Interesting idea but in early stages.
-- [x] [Apex](https://github.com/apexcharts/react-apexcharts)  
-       + Has many chart types. Seems to have a simple API.  
-       - Does not seem to be able to adjust its aspect ratio to its container.
 - [x] [Polaris viz](https://github.com/Shopify/polaris-viz) 👎  
        + Nice visually.  
        - Not enough chart types.
 - [x] [Unovis](https://github.com/f5/unovis) 👎  
        - Not enough chart types. Seems to have complicated API.
-- [x] [Observable HQ Plot](https://github.com/observablehq/plot) 👎  
-       - Seems oriented to more scientific charts. Does not have good React support.
+- [x] [ObservableHQ Plot](https://github.com/observablehq/plot) 👎  
+       - Does not have good React support.
 - [ ] [Nivo](https://nivo.rocks/components)  
        + Has many chart types.
 - [ ] [Victory](https://formidable.com/open-source/victory/)  
        - Does not have heatmap or sunburst charts.
 - [ ] [Billboard](https://naver.github.io/billboard.js/)
+
+## Results
+
+### **Highcharts**
+
+[Documentation](https://www.highcharts.com/docs/)
+
+#### Pros
+
+1. Many chart types and options.
+2. Extensive API.
+3. Good documentation.
+
+#### Cons
+
+1. It mutates the original data array. [Related Github issue](https://github.com/highcharts/highcharts-react/issues/326).
+2. It is a paid product for commercial use.
+3. Responsive charts can be tricky to achieve.
+
+#### Unique features
+
+1. [Breadcrumbs](https://www.highcharts.com/docs/advanced-chart-features/breadcrumbs)
+2. [Debugger module](https://www.highcharts.com/docs/advanced-chart-features/debugger-mode)
+3. [Boost module](https://www.highcharts.com/docs/advanced-chart-features/boost-module)
+
+---
+
+### **Apache Echarts**
+
+[Documentation](https://echarts.apache.org/handbook/en/get-started/)
+
+#### Pros
+
+1. Very nice visually.
+2. Many chart types and customization options.
+3. Extensive API.
+4. Good documentation.
+5. Responsive charts.
+
+#### Cons
+
+1. Does not have a React library, but seems quite easily integratable.
+
+---
+
+### **VisX**
+
+[Documentation](https://airbnb.io/visx/docs)
+
+#### Pros
+
+1. Has an extensive API since it's a D3 wrapper.
+2. Nice visually.
+
+#### Cons
+
+1. Has a steep learning curve, since it's a D3 wrapper.
+2. Does not have more complex charts, eg. sunburst.
+3. Responsive charts require an additional wrapper.
+
+#### Unique features
+
+1. Uses [D3](https://d3js.org/).
+
+---
+
+### **Recharts**
+
+[Documentation](https://recharts.org/en-US/api)
+
+#### Pros
+
+1. Extensive API.
+2. Nice documentation.
+3. Responsive charts.
+
+#### Cons
+
+1. Does not have many chart types, eg. heatmap, sunburst or polar charts.
+
+---
+
+### **Chart.js**
+
+[Documentation](https://www.chartjs.org/docs/latest/)
+
+#### Pros
+
+1. Easy to use.
+2. Nice documentation.
+3. Responsive charts.
+
+#### Cons
+
+1. Does not have many chart types, eg. heatmap or sunburst charts.
+2. Does not have an extensive API and many customization options.
+3. Does not seem to be able to adjust its aspect ratio to its container.
+
+---
+
+### **Plotly**
+
+[Documentation](https://plotly.com/javascript/)
+
+#### Pros
+
+1. Has many chart types and options.
+2. Responsive charts.
+
+#### Cons
+
+1. Not the best Typescript support. Working, but may require some manual typing.
+
+---
+
+### **ApexCharts**
+
+[Documentation](https://apexcharts.com/docs/installation/)
+
+#### Pros
+
+1. Has many chart types.
+2. Seems to have a simple API.
+
+#### Cons
+
+1. Does not seem to be able to adjust its aspect ratio to its container.
+
+## TODO
+
+- [ ] Performance benchmark on many data points

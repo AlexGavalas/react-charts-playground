@@ -11,7 +11,6 @@ const trace1: Datum = {
   x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
   y: ["Morning", "Afternoon", "Evening"],
   type: "heatmap",
-  // hoverongaps: false,
 };
 
 const data = [trace1];
@@ -21,5 +20,12 @@ const layout = {
 };
 
 export const HeatmapChart = () => {
-  return <Plot data={data} layout={layout} className="chart-container" />;
+  return (
+    <Plot
+      data={data}
+      layout={layout}
+      config={{ responsive: true }}
+      className="chart-container"
+    />
+  );
 };

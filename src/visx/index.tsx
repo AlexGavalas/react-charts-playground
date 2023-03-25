@@ -10,8 +10,8 @@ import { ScatterChart } from "./scatter";
 
 export const VisXDemo = () => {
   return (
-    <div className="highcharts">
-      <p>VisX</p>
+    <div className="grid">
+      <p className="title">VisX</p>
       <div className="charts">
         <Scales />
         <Legends />

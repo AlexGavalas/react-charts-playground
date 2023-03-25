@@ -2,7 +2,8 @@ import { useRef } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { useElementSize, mergeWithDefault } from "./helpers";
+import { mergeWithDefault } from "./helpers";
+import { useElementSize } from "../helpers";
 
 export const SplineChart = () => {
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
@@ -10,7 +11,6 @@ export const SplineChart = () => {
 
   const options = mergeWithDefault({
     chart: {
-      className: "highcharts-chart",
       width,
       height,
     },

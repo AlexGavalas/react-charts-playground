@@ -3,7 +3,8 @@ import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import HeatmapModule from "highcharts/modules/heatmap";
 
-import { useElementSize, mergeWithDefault } from "./helpers";
+import { mergeWithDefault } from "./helpers";
+import { useElementSize } from "../helpers";
 
 HeatmapModule(Highcharts);
 
@@ -13,7 +14,6 @@ export const HeatmapChart = () => {
 
   const options = mergeWithDefault({
     chart: {
-      className: "highcharts-chart",
       width,
       height,
     },

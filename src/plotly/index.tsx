@@ -13,8 +13,8 @@ import { SunburstChart } from "./sunburst";
 
 export const PlotlyDemo = () => {
   return (
-    <div className="highcharts">
-      <p>Plotly</p>
+    <div className="grid">
+      <p className="title">Plotly</p>
       <div className="charts">
         <AreaChart />
         <AreaSplineChart />

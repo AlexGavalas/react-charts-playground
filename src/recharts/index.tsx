@@ -10,8 +10,8 @@ import { ScatterChart } from "./scatter";
 
 export const RechartsDemo = () => {
   return (
-    <div className="highcharts">
-      <p>Recharts</p>
+    <div className="grid">
+      <p className="title">Recharts</p>
       <div className="charts">
         <AreaChart />
         <AreaSplineChart />
@@ -22,9 +22,6 @@ export const RechartsDemo = () => {
         <PieChart />
         <DonutChart />
         <ScatterChart />
-        {/*<HeatmapChart />
-        <PolarChart />
-        <SunburstChart /> */}
       </div>
     </div>
   );

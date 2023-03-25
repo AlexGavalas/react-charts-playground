@@ -11,7 +11,6 @@ export const AreaChart = () => {
 
   const options = mergeWithDefault({
     chart: {
-      className: "highcharts-chart",
       width,
       height,
     },

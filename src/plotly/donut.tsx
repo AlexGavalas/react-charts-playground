@@ -6,7 +6,7 @@ const trace1: Datum = {
   values: [19, 26, 55],
   labels: ["Residential", "Non-Residential", "Utility"],
   type: "pie",
-  hole: .4,
+  hole: 0.4,
 };
 
 const data = [trace1];
@@ -16,5 +16,12 @@ const layout = {
 };
 
 export const DonutChart = () => {
-  return <Plot data={data} layout={layout} className="chart-container" />;
+  return (
+    <Plot
+      data={data}
+      layout={layout}
+      config={{ responsive: true }}
+      className="chart-container"
+    />
+  );
 };

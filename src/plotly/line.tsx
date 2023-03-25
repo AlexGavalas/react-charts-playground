@@ -24,5 +24,12 @@ const layout = {
 };
 
 export const LineChart = () => {
-  return <Plot data={data} layout={layout} className="chart-container" />;
+  return (
+    <Plot
+      data={data}
+      layout={layout}
+      config={{ responsive: true }}
+      className="chart-container"
+    />
+  );
 };

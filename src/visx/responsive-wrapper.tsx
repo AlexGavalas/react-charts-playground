@@ -1,32 +1,18 @@
-import { ComponentType, ReactElement } from "react";
+import { ComponentType } from "react";
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 
-export const ResponsiveWrapper = ({
-  children,
-}: {
-  children: (props: SizeProps) => ReactElement;
-}) => {
-  return (
-    <div className="visx-chart">
-      <ParentSize debounceTime={10}>
-        {({ width, height }) => children({ width, height })}
-      </ParentSize>
-    </div>
-  );
-};
-
 export const withSize = (Component: ComponentType<SizeProps>) => {
-  const wrappedComponent = () => {
+  const WrappedComponent = (props: any) => {
     return (
-      <div className="visx-chart">
+      <div className="chart-container">
         <ParentSize debounceTime={10}>
-          {(size) => <Component {...size} />}
+          {(size) => <Component {...size} {...props} />}
         </ParentSize>
       </div>
     );
   };
 
-  return wrappedComponent;
+  return WrappedComponent;
 };
 
 export type SizeProps = {

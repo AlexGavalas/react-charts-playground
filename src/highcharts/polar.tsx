@@ -3,7 +3,8 @@ import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import HighchartsMore from "highcharts/highcharts-more";
 
-import { useElementSize, mergeWithDefault } from "./helpers";
+import { mergeWithDefault } from "./helpers";
+import { useElementSize } from "../helpers";
 
 HighchartsMore(Highcharts);
 
@@ -13,7 +14,6 @@ export const PolarChart = () => {
 
   const options = mergeWithDefault({
     chart: {
-      className: "highcharts-chart",
       width,
       height,
       polar: true,

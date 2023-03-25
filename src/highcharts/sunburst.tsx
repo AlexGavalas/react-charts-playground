@@ -3,7 +3,8 @@ import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import SunburstModule from "highcharts/modules/sunburst";
 
-import { useElementSize, mergeWithDefault } from "./helpers";
+import { mergeWithDefault } from "./helpers";
+import { useElementSize } from "../helpers";
 
 SunburstModule(Highcharts);
 
@@ -317,7 +318,6 @@ export const SunburstChart = () => {
 
   const options = mergeWithDefault({
     chart: {
-      className: "highcharts-chart",
       width,
       height,
     },

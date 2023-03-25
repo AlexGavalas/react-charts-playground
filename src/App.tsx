@@ -1,6 +1,6 @@
 import {
   createBrowserRouter,
-  Link,
+  NavLink,
   Outlet,
   RouterProvider,
 } from "react-router-dom";
@@ -13,22 +13,20 @@ import { EchartsDemo } from "./echarts";
 import { PlotlyDemo } from "./plotly";
 import { ApexChartsDemo } from "./apexcharts";
 
-import "./App.css";
-
 const Root = () => {
   return (
-    <div>
+    <>
       <nav className="nav">
-        <Link to="/highcharts">Highcharts</Link>
-        <Link to="/recharts">Recharts</Link>
-        <Link to="/chartjs">Chartjs</Link>
-        <Link to="/visx">VisX</Link>
-        <Link to="/echarts">Echarts</Link>
-        <Link to="/plotly">Plotly</Link>
-        <Link to="/apexcharts">ApexCharts</Link>
+        <NavLink to="/highcharts">Highcharts</NavLink>
+        <NavLink to="/recharts">Recharts</NavLink>
+        <NavLink to="/chartjs">Chartjs</NavLink>
+        <NavLink to="/visx">VisX</NavLink>
+        <NavLink to="/echarts">Echarts</NavLink>
+        <NavLink to="/plotly">Plotly</NavLink>
+        <NavLink to="/apexcharts">ApexCharts</NavLink>
       </nav>
       <Outlet />
-    </div>
+    </>
   );
 };
 
@@ -69,12 +67,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+export const App = () => {
   return (
     <div className="App">
       <RouterProvider router={router} />
     </div>
   );
-}
-
-export default App;
+};
