@@ -4,16 +4,25 @@ import { useElementSize } from "../helpers";
 import { APEX_CHART_PADDING } from "./constants";
 import { mergeWithDefault } from "./helpers";
 
-export const LineChart = () => {
+export const AreaChart = () => {
   const { ref, height, width } = useElementSize<HTMLDivElement>();
 
   const props: Props = mergeWithDefault({
+    series: [
+      {
+        name: "Desktops",
+        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+      },
+    ],
     options: {
+      fill: {
+        type: "gradient",
+      },
       stroke: {
         curve: "straight",
       },
       title: {
-        text: "Line chart",
+        text: "Area chart",
       },
       xaxis: {
         categories: [
@@ -29,12 +38,6 @@ export const LineChart = () => {
         ],
       },
     },
-    series: [
-      {
-        name: "Desktops",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-      },
-    ],
   });
 
   return (
@@ -42,7 +45,7 @@ export const LineChart = () => {
       <Chart
         options={props.options}
         series={props.series}
-        type="line"
+        type="area"
         width={width - APEX_CHART_PADDING}
         height={height - APEX_CHART_PADDING}
       />

@@ -4,16 +4,16 @@ import { useElementSize } from "../helpers";
 import { APEX_CHART_PADDING } from "./constants";
 import { mergeWithDefault } from "./helpers";
 
-export const LineChart = () => {
+export const SplineChart = () => {
   const { ref, height, width } = useElementSize<HTMLDivElement>();
 
   const props: Props = mergeWithDefault({
     options: {
       stroke: {
-        curve: "straight",
+        curve: "smooth",
       },
       title: {
-        text: "Line chart",
+        text: "Spline chart",
       },
       xaxis: {
         categories: [

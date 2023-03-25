@@ -4,37 +4,17 @@ import { useElementSize } from "../helpers";
 import { APEX_CHART_PADDING } from "./constants";
 import { mergeWithDefault } from "./helpers";
 
-export const LineChart = () => {
+export const PieChart = () => {
   const { ref, height, width } = useElementSize<HTMLDivElement>();
 
   const props: Props = mergeWithDefault({
     options: {
-      stroke: {
-        curve: "straight",
-      },
       title: {
-        text: "Line chart",
+        text: "Pie chart",
       },
-      xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-        ],
-      },
+      labels: ["a", "b", "c"],
     },
-    series: [
-      {
-        name: "Desktops",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-      },
-    ],
+    series: [10, 20, 15],
   });
 
   return (
@@ -42,7 +22,7 @@ export const LineChart = () => {
       <Chart
         options={props.options}
         series={props.series}
-        type="line"
+        type="pie"
         width={width - APEX_CHART_PADDING}
         height={height - APEX_CHART_PADDING}
       />

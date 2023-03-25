@@ -6,11 +6,11 @@ Libraries tried are:
 
 - [x] [Highcharts](https://github.com/highcharts/highcharts-react) 🚀
 - [x] [Apache Echarts](https://echarts.apache.org/en/index.html) 🚀
-- [x] [VisX](https://airbnb.io/visx/) 🚀
+- [x] [ApexCharts](https://github.com/apexcharts/react-apexcharts) 🤔
+- [x] [VisX](https://airbnb.io/visx/) 🤔
 - [x] [Recharts](https://recharts.org/) 🤔
 - [x] [Chart.js](https://github.com/reactchartjs/react-chartjs-2) 🤔
 - [x] [Plotly](https://plotly.com/javascript/) 🤔
-- [x] [ApexCharts](https://github.com/apexcharts/react-apexcharts) 🤔
 
 Libraries tried but not included here are:
 
@@ -25,7 +25,7 @@ Libraries tried but not included here are:
        + Nice visually.  
        - Not enough chart types.
 - [x] [Unovis](https://github.com/f5/unovis) 👎  
-       - Not enough chart types. Seems to have complicated API.
+       - Not enough chart types. Has complicated API.
 - [x] [ObservableHQ Plot](https://github.com/observablehq/plot) 👎  
        - Does not have good React support.
 - [ ] [Nivo](https://nivo.rocks/components)  
@@ -74,7 +74,7 @@ Libraries tried but not included here are:
 
 #### Cons
 
-1. Does not have a React library, but seems quite easily integratable.
+1. Does not have a React library, but is easily integratable.
 
 ---
 
@@ -129,7 +129,7 @@ Libraries tried but not included here are:
 
 1. Does not have many chart types, eg. heatmap or sunburst charts.
 2. Does not have an extensive API and many customization options.
-3. Does not seem to be able to adjust its aspect ratio to its container.
+3. Does not adjust its aspect ratio to its container.
 
 ---
 
@@ -155,11 +155,14 @@ Libraries tried but not included here are:
 #### Pros
 
 1. Has many chart types.
-2. Seems to have a simple API.
+2. Has a simple API.
+3. Nice visually.
 
 #### Cons
 
-1. Does not seem to be able to adjust its aspect ratio to its container.
+1. Does not adjust its aspect ratio to its container.
+2. To be responsive you need to provide width and height explicitly.
+3. Does not have sunburst.
 
 ## TODO
 
