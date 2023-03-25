@@ -4,7 +4,6 @@ import {
   XAxis,
   CartesianGrid,
   Tooltip,
-  Text,
   Area,
 } from "recharts";
 

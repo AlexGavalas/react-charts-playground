@@ -10,8 +10,10 @@ import { RechartsDemo } from "./recharts";
 import { ChartjsDemo } from "./chartjs";
 import { VisXDemo } from "./visx";
 import { EchartsDemo } from "./echarts";
-import "./App.css";
 import { PlotlyDemo } from "./plotly";
+import { ApexChartsDemo } from "./apexcharts";
+
+import "./App.css";
 
 const Root = () => {
   return (
@@ -23,6 +25,7 @@ const Root = () => {
         <Link to="/visx">VisX</Link>
         <Link to="/echarts">Echarts</Link>
         <Link to="/plotly">Plotly</Link>
+        <Link to="/apexcharts">ApexCharts</Link>
       </nav>
       <Outlet />
     </div>
@@ -57,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "plotly",
         element: <PlotlyDemo />,
+      },
+      {
+        path: "apexcharts",
+        element: <ApexChartsDemo />,
       },
     ],
   },
