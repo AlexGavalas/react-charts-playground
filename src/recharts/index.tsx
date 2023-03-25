@@ -8,7 +8,7 @@ import { PieChart } from "./pie";
 import { DonutChart } from "./donut";
 import { ScatterChart } from "./scatter";
 
-export const RechartsDemo = () => {
+const RechartsDemo = () => {
   return (
     <div className="grid">
       <p className="title">Recharts</p>
@@ -26,3 +26,5 @@ export const RechartsDemo = () => {
     </div>
   );
 };
+
+export default RechartsDemo;

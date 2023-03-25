@@ -9,7 +9,7 @@ import { PolarChart } from "./polar";
 import { ScatterChart } from "./scatter";
 import { SplineChart } from "./spline";
 
-export const ChartjsDemo = () => {
+const ChartjsDemo = () => {
   return (
     <div className="grid">
       <p className="title">Chart.js</p>
@@ -28,3 +28,5 @@ export const ChartjsDemo = () => {
     </div>
   );
 };
+
+export default ChartjsDemo;

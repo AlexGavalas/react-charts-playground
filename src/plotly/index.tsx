@@ -11,7 +11,7 @@ import { ScatterChart } from "./scatter";
 import { SplineChart } from "./spline";
 import { SunburstChart } from "./sunburst";
 
-export const PlotlyDemo = () => {
+const PlotlyDemo = () => {
   return (
     <div className="grid">
       <p className="title">Plotly</p>
@@ -32,3 +32,5 @@ export const PlotlyDemo = () => {
     </div>
   );
 };
+
+export default PlotlyDemo;

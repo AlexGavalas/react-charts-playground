@@ -1,21 +1,18 @@
 import { useRef, useEffect } from "react";
 import { init, getInstanceByDom } from "echarts";
-import type { CSSProperties } from "react";
 import type { EChartsOption, ECharts, SetOptionOpts } from "echarts";
 
 export interface ReactEChartsProps {
   option: EChartsOption;
-  style?: CSSProperties;
   settings?: SetOptionOpts;
   loading?: boolean;
 }
 
-export function ReactECharts({
+export const ReactECharts = ({
   option,
-  style,
   settings,
   loading,
-}: ReactEChartsProps): JSX.Element {
+}: ReactEChartsProps): JSX.Element => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,4 +54,4 @@ export function ReactECharts({
   }, [loading]);
 
   return <div ref={chartRef} className="chart-container" />;
-}
+};

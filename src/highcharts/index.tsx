@@ -11,7 +11,7 @@ import { ScatterChart } from "./scatter";
 import { SplineChart } from "./spline";
 import { SunburstChart } from "./sunburst";
 
-export const HighchartsDemo = () => {
+const HighchartsDemo = () => {
   return (
     <div className="grid">
       <p className="title">Highcharts</p>
@@ -32,3 +32,5 @@ export const HighchartsDemo = () => {
     </div>
   );
 };
+
+export default HighchartsDemo;

@@ -11,7 +11,7 @@ import { ScatterChart } from "./scatter";
 import { SplineChart } from "./spline";
 import { SunburstChart } from "./sunburst";
 
-export const EchartsDemo = () => {
+const EchartsDemo = () => {
   return (
     <div className="grid">
       <p className="title">Echarts</p>
@@ -32,3 +32,5 @@ export const EchartsDemo = () => {
     </div>
   );
 };
+
+export default EchartsDemo;

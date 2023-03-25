@@ -8,7 +8,7 @@ import { SplineChart } from "./spline";
 import { PieChart } from "./pie";
 import { ScatterChart } from "./scatter";
 
-export const VisXDemo = () => {
+const VisXDemo = () => {
   return (
     <div className="grid">
       <p className="title">VisX</p>
@@ -26,3 +26,5 @@ export const VisXDemo = () => {
     </div>
   );
 };
+
+export default VisXDemo;

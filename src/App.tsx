@@ -1,3 +1,5 @@
+import { Suspense, lazy } from "react";
+
 import {
   createBrowserRouter,
   NavLink,
@@ -5,13 +7,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { HighchartsDemo } from "./highcharts";
-import { RechartsDemo } from "./recharts";
-import { ChartjsDemo } from "./chartjs";
-import { VisXDemo } from "./visx";
-import { EchartsDemo } from "./echarts";
-import { PlotlyDemo } from "./plotly";
-import { ApexChartsDemo } from "./apexcharts";
+const HighchartsDemo = lazy(() => import("./highcharts")); // 726
+const RechartsDemo = lazy(() => import("./recharts")); // 665
+const ChartjsDemo = lazy(() => import("./chartjs")); // 3200
+const VisXDemo = lazy(() => import("./visx")); // 657
+const EchartsDemo = lazy(() => import("./echarts")); // 1200
+const PlotlyDemo = lazy(() => import("./plotly")); // 3900
+const ApexChartsDemo = lazy(() => import("./apexcharts")); // 706
 
 const Root = () => {
   return (
@@ -25,7 +27,9 @@ const Root = () => {
         <NavLink to="/plotly">Plotly</NavLink>
         <NavLink to="/apexcharts">ApexCharts</NavLink>
       </nav>
-      <Outlet />
+      <Suspense fallback="Loading ...">
+        <Outlet />
+      </Suspense>
     </>
   );
 };

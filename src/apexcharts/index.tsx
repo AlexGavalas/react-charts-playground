@@ -1,6 +1,6 @@
 import { LineChart } from "./line";
 
-export const ApexChartsDemo = () => {
+const ApexChartsDemo = () => {
   return (
     <div className="grid">
       <p className="title">Apexcharts</p>
@@ -10,3 +10,5 @@ export const ApexChartsDemo = () => {
     </div>
   );
 };
+
+export default ApexChartsDemo;
